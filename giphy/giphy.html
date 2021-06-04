@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Fetch API</title>
+
+      <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+      </script>
+    </head>
+    <body>
+      <h1>open the console to see the result</h1>
+        <script>    
+          let apiKey= "l638WPBsusN4Hth8cjVYu33qELrQ77E9"
+            let giphyAPI = `https://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=${apiKey}&limit=5`;
+
+            function setup(){
+
+                fetch(giphyAPI)
+                .then(response => {
+                    return response.json();
+                })
+                .then(json => {
+                  console.log(json)
+                    console.log(json.data[0].images.original.url);
+                    console.log(json.data[0].url);
+                })
+
+                .catch(err => console.log(err));
+            }
+            setup();
+        </script>
+
+    </body>
+    </html>

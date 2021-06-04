@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wiki API</title>
+
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"> -->
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    
+    <!-- PERSONALIZED CSS -->
+    <link rel="stylesheet" href="./wikipedia.css">
+    
+    <!-- ANIMATED CSS -->
+    <link rel="stylesheet" href="./animate.css">
+    
+
+  </head>
+  <body>
+    <div class="container">
+
+        <!-- SEARCH BAR -->
+        <form id="wikiSearch" class="wikiSearch">
+            <input id="searchBar" type="text" autocomplete="off" name="search" placeholder="search wikipedia..." />
+            <span class="inputUnderline"></span>
+            <button id="submitBtn" type="submit"><i class="fas fa-search fa-3x"></i></i></button>
+
+            <!-- LINK TO WIKI LIST OF NBA PLAYERS -->
+            <a id="spontaneous" target="_blank" href="https://en.wikipedia.org/wiki/Lists_of_National_Basketball_Association_players">List of NBA Players</a>
+            
+            <!-- PLACEHOLDER OF RECENT SEARCHES -->
+            <h4>Recent Searches</h4>
+            
+
+        </form>
+
+        <!-- EMPTY DIV FOR SEARCH RESULTS -->
+        <div>
+            <ul id="searchResults">
+                <div id="noResults" class="animated fadeInDown" style="display:none;">
+                    <h2>no results found!</h2>
+                </div>
+            </ul>
+        </div>
+
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="./wikipedia.js"></script>
+
+  </body>
+</html>

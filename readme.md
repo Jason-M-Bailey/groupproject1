@@ -23,9 +23,13 @@ THEN I am presented with the most relevant gif of that player from GIPHY
 
 ```
 APIs
+
 https://www.mediawiki.org/wiki/API:Main_page
+
 https://any-api.com/nba_com/nba_com/docs/API_Description
+
 https://developers.google.com/youtube/
+
 https://developers.giphy.com/docs/sdk
 
 
