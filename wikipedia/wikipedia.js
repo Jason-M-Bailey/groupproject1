@@ -5,17 +5,21 @@
 var searchBar = document.getElementById("searchBar");
 var submitBtn = document.getElementById("submitBtn");
 var query = searchBar.value;
+var recentSearch = JSON.parse(localStorage.getItem("results")) || [];
 
-var api =
-  "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=10&gsrsearch=";
+for (let index = recentSearch.length - 1; index > 0; index--) {
+  // console.log(recentSearch[index]);
+}
 
-var url = ""; // set url from outside addEventListener function
+var api = "";
 
-submitBtn.addEventListener("click", function (e) { // listen for click on submit button
+// listen for click on submit button
+submitBtn.addEventListener("click", function (e) {
   $("#searchResults").empty(); // clear search results
   e.preventDefault(); // prevent default behavior of submit button
 
-  if (searchBar.value === "") { // if search bar is empty
+  // if search bar is empty
+  if (searchBar.value === "") {
     searchBar.classList.add("animated", "shake", "alert"); // add the alert class
     setTimeout(function () {
       searchBar.classList.remove("animated", "shake", "alert"); // remove alert after animation complete
@@ -24,49 +28,84 @@ submitBtn.addEventListener("click", function (e) { // listen for click on submit
   } else {
     var apiUrl = api + "%27" + searchBar.value.replace(/[\s]/g, "_") + "%27"; // replace whitespaces with underscores
 
-    console.log(apiUrl);
-    console.log('User Query:', searchBar.value); // log users search query
+    console.log(apiUrl); 
+    console.log("User Query:", searchBar.value); // log users search query
     localStorage.setItem("User Query", searchBar.value);
     console.log(localStorage);
 
-    searchBar.value = ""; // clear search bar
     url = apiUrl; // set url to apiUrl
-
+    recentSearch.push(searchBar.value);
+    localStorage.setItem("results", JSON.stringify(recentSearch));
     searchResults(apiUrl); // call searchResults, passing in the apiUrl
+    // recent searches are stored in local storage, work to append them here
+    // localStorage.getItem(...)
+    // document.createElement(...)
+
   }
 });
 
-function searchResults(url) {
-  $.ajax({
-    url: url,
-    success: function (result) {
-      // console.log('Result:', result); // Returns full result object
-      // console.log('Pages:', result.query.pages); // Returns result pages within result object
+function generateList(list) {
+  for (let i = 0; i < list.length; i++) {
+    console.log(list[i].title); // lets see what wiki returns
 
-      for (var i in result.query.pages) { // loop through all pages within result object
+    var searchResults = document.getElementById("searchResults");
+    var resultsLi = document.createElement("li"); // create li element for all page titles
 
-        console.log(result.query.pages[i].title); // lets see what wiki returns 
+    resultsLi.className = "singleResult"; // add class to all li elements
+    resultsLi.style.display = "none"; // hide li by default
+    resultsLi.innerHTML = `<h3>
+                       ${list[i].title}
+                       </h3>
+                        <p>
+                      ${list[i].snippet}  <em>[click to read more...]</em>
+                      </p>
+                      `;
 
-        var searchResults = document.getElementById("searchResults");
-        var resultsLi = document.createElement("li"); // create li element for all page titles
+    searchResults.appendChild(resultsLi); // append lis to searchResults div
 
-        resultsLi.className = "singleResult"; // add class to all li elements
-        resultsLi.style.display = "none"; // hide li by default
-        resultsLi.innerHTML =
-          "<p>" + result.query.pages[i].title.toLowerCase() + "</p>"; // add title text to lis
-        searchResults.appendChild(resultsLi); // append lis to searchResults div
+    // wrap li with corresponding wiki url
+    $(resultsLi).wrap(function () { 
+      return (
+        '<a target="_blank" href="https://en.wikipedia.org/wiki/' +
+        list[i].title +
+        '"></a>'
+      );
+    });
 
-        $(resultsLi).wrap(function () { // wrap li with corresponding wiki url
-          return (
-            '<a target="_blank" href="https://en.wikipedia.org/wiki/' +
-            result.query.pages[i].title +
-            '"></a>'
-          );
-        });
-
-        $(resultsLi).fadeIn(1000); // fade in hidden lis
-      }
-    },
-  });
+    // fade in for a nice UI touch
+    $(resultsLi).fadeIn(1000);  
+  }
 }
 
+// snagged from the wiki api example page 
+function searchResults(url) {
+  console.log(searchBar.value);
+
+  var url = "https://en.wikipedia.org/w/api.php";
+
+  var params = {
+    action: "query",
+    list: "search",
+    srsearch: searchBar.value,
+    format: "json",
+    srlimit: 5,
+    prop: "images",
+  };
+
+  url = url + "?origin=*";
+  Object.keys(params).forEach(function (key) {
+    url += "&" + key + "=" + params[key];
+  });
+
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (response) {
+      console.log(response);
+      generateList(response.query.search);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
