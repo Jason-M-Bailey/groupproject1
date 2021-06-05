@@ -23,7 +23,7 @@ THEN I am redirected to the YouTube page of that video
 THEN I am presented with the most relevant gif of that player from GIPHY  
 <br />
 <br />
-```
+```<<<<<<< saturday_branch
 APIs  
 https://www.mediawiki.org/wiki/API:Main_page  
 https://any-api.com/nba_com/nba_com/docs/API_Description  
@@ -32,24 +32,24 @@ https://developers.giphy.com/docs/sdk
 <br />
 
 Day 1  
-<br />
+<br/>
 Divide into groups  
 Write a user story  
 Create a wireframe  
 Create a user flow diagram  
 Submit project proposal for approval  
-<br />
+<br/>
 Day 2 - 4  
-<br />
+<br/>
 Project development  
-<br />
+<br/>
 Day 5  
-<br />
+<br/>
 Project development  
 Prepare for presentations  
-<br />
+<br/>
 Day 6  
-<br />
+<br/>
 Give presentations  
 
 
