@@ -7,8 +7,18 @@ var submitBtn = document.getElementById("submitBtn");
 var query = searchBar.value;
 var recentSearch = JSON.parse(localStorage.getItem("results")) || [];
 
+// keep recent search display as 5 results
+// if statement to determine if anything in recent search
 for (let index = recentSearch.length - 1; index > 0; index--) {
-  // console.log(recentSearch[index]);
+  console.log(recentSearch[index]);
+  var defaultResults = document.getElementById("defaultSearches");
+  var defaultLi = document.createElement("li");
+
+  defaultLi.className = "singleResult";
+  defaultLi.innerHTML = recentSearch[index];
+
+  defaultResults.appendChild(defaultLi);
+  // location.reload(); // uncomment this when you use onclick
 }
 
 var api = "";
@@ -24,11 +34,10 @@ submitBtn.addEventListener("click", function (e) {
     setTimeout(function () {
       searchBar.classList.remove("animated", "shake", "alert"); // remove alert after animation complete
     }, 750);
-
   } else {
     var apiUrl = api + "%27" + searchBar.value.replace(/[\s]/g, "_") + "%27"; // replace whitespaces with underscores
 
-    console.log(apiUrl); 
+    console.log(apiUrl);
     console.log("User Query:", searchBar.value); // log users search query
     localStorage.setItem("User Query", searchBar.value);
     console.log(localStorage);
@@ -36,11 +45,7 @@ submitBtn.addEventListener("click", function (e) {
     url = apiUrl; // set url to apiUrl
     recentSearch.push(searchBar.value);
     localStorage.setItem("results", JSON.stringify(recentSearch));
-    searchResults(apiUrl); // call searchResults, passing in the apiUrl
-    // recent searches are stored in local storage, work to append them here
-    // localStorage.getItem(...)
-    // document.createElement(...)
-
+    searchResults(apiUrl);
   }
 });
 
@@ -64,7 +69,7 @@ function generateList(list) {
     searchResults.appendChild(resultsLi); // append lis to searchResults div
 
     // wrap li with corresponding wiki url
-    $(resultsLi).wrap(function () { 
+    $(resultsLi).wrap(function () {
       return (
         '<a target="_blank" href="https://en.wikipedia.org/wiki/' +
         list[i].title +
@@ -73,11 +78,11 @@ function generateList(list) {
     });
 
     // fade in for a nice UI touch
-    $(resultsLi).fadeIn(1000);  
+    $(resultsLi).fadeIn(1000);
   }
 }
 
-// snagged from the wiki api example page 
+// snagged from the wiki api example page
 function searchResults(url) {
   console.log(searchBar.value);
 

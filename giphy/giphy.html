@@ -2,6 +2,8 @@
     <html>
     <head>
         <title>Giphy API</title>
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
       <script
       src="https://code.jquery.com/jquery-3.3.1.js"
@@ -14,39 +16,15 @@
 
     </head>
     <body>
-      <div class="container">
-        <!-- SEARCH BAR -->
-        <form id="wikiSearch" class="wikiSearch">
-            <input id="searchBar" type="text" autocomplete="off" name="search" placeholder="search giphy..." />
-            <span class="inputUnderline"></span>
-            <button id="submitBtn" type="submit"><i class="fas fa-search fa-3x"></i></i></button>
-        </form>
+      <form id="wikiSearch" class="wikiSearch">
+        <input id="searchBar" type="text" autocomplete="off" name="search" placeholder="search giphy..." />
+        <span class="inputUnderline"></span>
+        <button id="submitBtn" type="submit"><i class="fas fa-search fa-3x"></i></i></button>
 
-        <script>    
-          let apiKey= "l638WPBsusN4Hth8cjVYu33qELrQ77E9" // api key created for nba project
-          // api.giphy.com/v1/gifs/search // search api 
-          // example page displays this as best practice: 
-          // use search term after "q = " and before the "&limit"
-          // https://api.giphy.com/v1/gifs/search?api_key=l638WPBsusN4Hth8cjVYu33qELrQ77E9&q=&limit=1&offset=0&rating=g&lang=en
+        <ul id="defaultSearches">
           
-            let giphyAPI = `https://api.giphy.com/v1/gifs/search?q=kobe+bryant&api_key=${apiKey}&limit=5`;
-
-            function setup(){
-
-                fetch(giphyAPI)
-                .then(response => {
-                    return response.json();
-                })
-                .then(json => {
-                  console.log(json)
-                    console.log(json.data[0].images.original.url); // this link displays just the gif
-                    console.log(json.data[0].url); // this link takes you to the giphy website with loads of extra links 
-                })
-                .catch(err => console.log(err));
-            }
-
-            setup();
-        </script>
-
+        </ul>
+    </form>
+    <script src="./giphy.js"></script>
     </body>
     </html>
