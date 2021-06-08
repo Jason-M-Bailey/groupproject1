@@ -5,6 +5,27 @@ body {
   height: 100vh;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.wikiResults,
+.giphyResults {
+  border: 1px black solid;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-basis: calc(50% - 1em);
+}
+
+footer {
+  text-align: center;
+  padding: 100px;
+}
+
 .title {
   font-weight: 200;
 }
