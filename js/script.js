@@ -39,7 +39,3 @@ submitBtn.addEventListener("click", function (e) {
   setup();
   console.log(userSearch.value); 
 });
-
-
-}
-
