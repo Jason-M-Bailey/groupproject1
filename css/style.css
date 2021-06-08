@@ -61,6 +61,17 @@ html {
   justify-content: center;
 }
 
+.gif {
+  max-width: 250px;
+  max-height: 185px;
+}
+
+.gif-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary);
+  object-fit: cover;
+}
 .flex-item-bookmarks {
   background-color: var(--primary);
   color: var(--tertiary);
