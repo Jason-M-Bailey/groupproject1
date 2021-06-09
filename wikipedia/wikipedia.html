@@ -20,33 +20,26 @@
     <div class="container">
         <!-- SEARCH BAR -->
         <form id="wikiSearch" class="wikiSearch">
-            <input id="searchBar" type="text" autocomplete="off" name="search" placeholder="search wikipedia..." />
+            <input id="searchBar" type="text" autocomplete="off" name="search" placeholder="search for a nba player..." />
             <span class="inputUnderline"></span>
             <button id="submitBtn" type="submit"><i class="fas fa-search fa-3x"></i></i></button>
+            <div class="autocomplete"></div>
 
             <!-- LINK TO WIKI LIST OF NBA PLAYERS -->
-            <a id="spontaneous" target="_blank" href="https://en.wikipedia.org/wiki/Lists_of_National_Basketball_Association_players">List of NBA Players</a>
+            <a id="nbaplayerlist" target="_blank" href="https://en.wikipedia.org/wiki/Lists_of_National_Basketball_Association_players">List of NBA Players</a>
             
             <!-- PLACEHOLDER OF RECENT SEARCHES -->
             <h4>Recent Searches</h4>
-            <ul id="defaultSearches">
-              
-            </ul>
+            <ul id="defaultSearches"></ul>
         </form>
 
         <!-- EMPTY DIV FOR SEARCH RESULTS -->
         <div class="row">
-          <div class="wikiResults">
-              <ul id="searchResults">
-                  <div id="noResults" class="animated fadeInDown" style="display:none;">
-                      <h2>no results found!</h2>
-                  </div>
-              </ul>
-          </div>
+          <!-- GIPHY RESULTS -->
           <div class="giphyResults">
             <div class="flex-item-bookmarks">
               <div>
-                <div class="gif-container">
+                <div class="gif-container animated fadeInDown">
                   <img id= "gif-1" class= "gif" src=> <img id= "gif-2" class=
                   "gif" src=> <img id= "gif-3" class= "gif" src=>
                 </div>
@@ -54,6 +47,17 @@
               </div>
             </div>
           </div>
+
+          
+          <!-- WIKI RESULTS -->
+          <div class="wikiResults">
+              <ul id="searchResults">
+                  <div id="noResults" class="animated fadeInDown" style="display:none;"></div>
+              </ul>
+          </div>
+
+
+
         </div>
     </div>
     <!-- END OF SEARCH RESULTS DIV -->

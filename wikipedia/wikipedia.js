@@ -7,16 +7,19 @@ var submitBtn = document.getElementById("submitBtn");
 var query = searchBar.value;
 var recentSearch = JSON.parse(localStorage.getItem("results")) || [];
 
+var gif= document.getElementsByClassName("gif-container");
+$(gif).fadeIn(1000);
+
 // keep recent search display as 5 results
 // if statement to determine if anything in recent search
 for (let index = recentSearch.length - 1; index > 0; index--) {
   console.log(recentSearch[index]);
   var defaultResults = document.getElementById("defaultSearches");
   var defaultLi = document.createElement("li");
-
+  
   defaultLi.className = "singleResult";
   defaultLi.innerHTML = recentSearch[index];
-
+  
   defaultResults.appendChild(defaultLi);
   // location.reload(); // uncomment this when you use onclick
 }
@@ -27,7 +30,7 @@ var api = "";
 submitBtn.addEventListener("click", function (e) {
   $("#searchResults").empty(); // clear search results
   e.preventDefault(); // prevent default behavior of submit button
-
+  
   // if search bar is empty
   if (searchBar.value === "") {
     searchBar.classList.add("animated", "shake", "alert"); // add the alert class
@@ -36,16 +39,17 @@ submitBtn.addEventListener("click", function (e) {
     }, 750);
   } else {
     var apiUrl = api + "%27" + searchBar.value.replace(/[\s]/g, "_") + "%27"; // replace whitespaces with underscores
-
+    
     console.log(apiUrl);
     console.log("User Query:", searchBar.value); // log users search query
     localStorage.setItem("User Query", searchBar.value);
     console.log(localStorage);
-
+    
     url = apiUrl; // set url to apiUrl
     recentSearch.push(searchBar.value);
     localStorage.setItem("results", JSON.stringify(recentSearch));
     searchResults(apiUrl);
+    setup();
   }
 });
 
@@ -91,9 +95,9 @@ function searchResults(url) {
   var params = {
     action: "query",
     list: "search",
-    srsearch: searchBar.value,
+    srsearch: searchBar.value + " nba",
     format: "json",
-    srlimit: 5,
+    srlimit: 1,
     prop: "images",
   };
 
@@ -115,47 +119,47 @@ function searchResults(url) {
     });
 }
 
-// 
-// giphy 
-// 
+//
+// giphy
+//
 var gifOne = document.getElementById("gif-1");
-var gifTwo = document.getElementById("gif-2")
-var gifThree = document.getElementById("gif-3")
+var gifTwo = document.getElementById("gif-2");
+var gifThree = document.getElementById("gif-3");
 var userSearch = document.getElementById("searchBar");
 var submitBtn = document.getElementById("submitBtn");
 
-let apiKey= "l638WPBsusN4Hth8cjVYu33qELrQ77E9" // api key created for nba project
+let apiKey = "l638WPBsusN4Hth8cjVYu33qELrQ77E9"; // api key created for nba project
 
 // https://api.giphy.com/v1/gifs/search?api_key=l638WPBsusN4Hth8cjVYu33qELrQ77E9&q=&limit=1&offset=0&rating=g&lang=en
-
 
 // $( document ).ready(function() {
 //   console.log(userSearch.value);
 // });
 
-function setup(){
+function setup() {
   let api = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&limit=5&q=${userSearch.value}`;
   fetch(api)
-  .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log(json)
-        console.log(json.data[0].images.original.url); // this link displays just the gif
-        console.log(json.data[3].images.original.url);
-        gifOne.src= json.data[0].images.original.url;
-        gifTwo.src= json.data[1].images.original.url;
-        gifThree.src= json.data[2].images.original.url;
-
-        
-
-      })
-      .catch(err => console.log(err));
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      console.log(json);
+      console.log(json.data[0].images.original.url); // this link displays just the gif
+      console.log(json.data[3].images.original.url);
+      gifOne.src = json.data[0].images.original.url;
+      // gifTwo.src = json.data[1].images.original.url;
+      // gifThree.src = json.data[2].images.original.url;
+    })
+    .catch((err) => console.log(err));
 }
-    
 
-submitBtn.addEventListener("click", function (e) {
-  e.preventDefault(); // prevent default behavior of submit button
-  setup();
-  console.log(userSearch.value); 
-});
+// submitBtn.addEventListener("click", function (e) {
+//   e.preventDefault(); // prevent default behavior of submit button
+//   setup();
+//   console.log(userSearch.value);
+//   // fade in over 1 second 
+//   // wiki code = $(resultsLi).fadeIn(1000);
+//   gifOne.fadeIn(1000);
+// });
+
+
