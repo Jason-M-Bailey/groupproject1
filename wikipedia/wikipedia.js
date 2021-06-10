@@ -41,6 +41,7 @@ submitBtn.addEventListener("click", function (e) {
   document.querySelector("#searchResults").classList.remove("hide"); // hide the element initially
   
   
+  
   // if search bar is empty
   if (searchBar.value === "") {
     searchBar.classList.add("animated", "shake", "alert"); // add the alert class
@@ -51,8 +52,9 @@ submitBtn.addEventListener("click", function (e) {
     var apiUrl = api + "%27" + searchBar.value.replace(/[\s]/g, "_") + "%27"; // replace whitespaces with underscores
 
     console.log(apiUrl);
-    console.log("User Query:", searchBar.value); // log users search query
-    localStorage.setItem("User Query", searchBar.value);
+    console.log("query:", searchBar.value); // log users search query
+    localStorage.setItem("query", searchBar.value);
+    
     console.log(localStorage);
 
     url = apiUrl; // set url to apiUrl
