@@ -7,18 +7,48 @@ body {
 
 .row {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   justify-content: center;
+  text-align: center;
 }
 
 .wikiResults,
-.giphyResults {
-  border: 1px black solid;
+.giphyResults,
+.row {
+  /* border: 1px black solid; */
   flex-direction: row;
   flex-wrap: wrap;
   align-items: stretch;
   justify-content: space-between;
-  flex-basis: calc(50% - 1em);
+  flex-basis: calc(100% - 1em);
+}
+
+/* Mobile first queries */
+/* Larger than tablet */
+@media (min-width: 750px) {
+  .wikiResults,
+  .giphyResults,
+  .row {
+    flex-basis: calc(100% - 1em);
+  }
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {
+  .wikiResults,
+  .giphyResults,
+  .row {
+    flex-basis: calc(100% - 1em);
+  }
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {
+  .wikiResults,
+  .giphyResults,
+  .row {
+    flex-basis: calc(100% - 1em);
+  }
 }
 
 footer {
@@ -33,7 +63,7 @@ footer {
 .wikiSearch {
   display: block;
   margin: 0 auto 25px;
-  width: 800px;
+  width: 90%;
   text-align: center;
   padding: 20px;
 }
@@ -41,7 +71,7 @@ footer {
 #searchBar {
   height: 50px;
   text-align: center;
-  width: 600px;
+  width: 80%;
   font-weight: 100;
   font-size: 50px;
   display: inline-block;
@@ -59,23 +89,6 @@ footer {
   transition: border-bottom 0.5s ease;
 }
 
-@media screen and (max-width: 420px) {
-  #searchBar {
-    width: 300px;
-    font-size: 25px;
-    margin: 0 auto;
-  }
-  #wikiSearch {
-    width: 360px;
-  }
-  #spontaneous {
-    margin-top: 20px;
-  }
-  .fa-3x {
-    font-size: 2em !important;
-  }
-}
-
 #submitBtn {
   background: transparent;
   border: none;
@@ -90,7 +103,7 @@ footer {
   color: #ddd;
 }
 
-#spontaneous {
+#nbaplayerlist {
   display: block;
   text-decoration: none;
   text-transform: lowercase;
@@ -101,7 +114,7 @@ footer {
   transition-duration: 1s;
 }
 
-#spontaneous:hover {
+#nbaplayerlist:hover {
   color: #000000;
   transition-property: color;
   transition-duration: 1s;
@@ -151,8 +164,8 @@ ul {
   border-bottom: 3px solid #000000 !important;
   transition: border-bottom 0.5s ease;
 }
-
+/* 
 li:hover {
   box-shadow: 0 0 8px black;
   transition-duration: 0.7s;
-}
+} */
