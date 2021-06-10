@@ -12,17 +12,27 @@ $(gif).fadeIn(1000);
 
 // keep recent search display as 5 results
 // if statement to determine if anything in recent search
-for (let index = recentSearch.length - 1; index > 0; index--) {
-  console.log(recentSearch[index]);
+//Recent Search Function
+
+function updateRecentSearch () {
   var defaultResults = document.getElementById("defaultSearches");
+  //defaultResults.style.listStyle("None");
+  //var ul = document.getElementById("ulMessages");
+  while(defaultResults.firstChild) defaultResults.removeChild(defaultResults.firstChild);
+
+  for (let index = recentSearch.length - 1; index > recentSearch.length - 6; index--) {
+  console.log(recentSearch[index]);
+
+
+  //var defaultResults = document.getElementById("defaultSearches");
   var defaultLi = document.createElement("li");
   
   defaultLi.className = "singleResult";
   defaultLi.innerHTML = recentSearch[index];
-  
+
   defaultResults.appendChild(defaultLi);
   // location.reload(); // uncomment this when you use onclick
-}
+}}
 
 var api = "";
 
@@ -30,6 +40,7 @@ var api = "";
 submitBtn.addEventListener("click", function (e) {
   $("#searchResults").empty(); // clear search results
   e.preventDefault(); // prevent default behavior of submit button
+  
   
   // if search bar is empty
   if (searchBar.value === "") {
@@ -41,8 +52,9 @@ submitBtn.addEventListener("click", function (e) {
     var apiUrl = api + "%27" + searchBar.value.replace(/[\s]/g, "_") + "%27"; // replace whitespaces with underscores
     
     console.log(apiUrl);
-    console.log("User Query:", searchBar.value); // log users search query
-    localStorage.setItem("User Query", searchBar.value);
+    console.log("query:", searchBar.value); // log users search query
+    localStorage.setItem("query", searchBar.value);
+    
     console.log(localStorage);
     
     url = apiUrl; // set url to apiUrl
@@ -51,6 +63,7 @@ submitBtn.addEventListener("click", function (e) {
     searchResults(apiUrl);
     setup();
   }
+  updateRecentSearch ();
 });
 
 function generateList(list) {
