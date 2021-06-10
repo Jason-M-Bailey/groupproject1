@@ -18,6 +18,8 @@
   </head>
   <body>
     <div class="container">
+
+
         <!-- SEARCH BAR -->
         <form id="wikiSearch" class="wikiSearch">
             <input id="searchBar" type="text" autocomplete="off" name="search" placeholder="search for a nba player..." />
@@ -25,16 +27,20 @@
             <button id="submitBtn" type="submit"><i class="fas fa-search fa-3x"></i></i></button>
             <div class="autocomplete"></div>
 
+
             <!-- LINK TO WIKI LIST OF NBA PLAYERS -->
             <a id="nbaplayerlist" target="_blank" href="https://en.wikipedia.org/wiki/Lists_of_National_Basketball_Association_players">List of NBA Players</a>
             
+
             <!-- PLACEHOLDER OF RECENT SEARCHES -->
             <h4>Recent Searches</h4>
-            <ul id="defaultSearches"></ul>
+            <ul id="pastSearches"></ul>
         </form>
 
         <!-- EMPTY DIV FOR SEARCH RESULTS -->
         <div class="row">
+
+
           <!-- GIPHY RESULTS -->
           <div class="giphyResults">
             <div class="flex-item-bookmarks">
@@ -51,7 +57,7 @@
           
           <!-- WIKI RESULTS -->
           <div class="wikiResults">
-              <ul id="searchResults">
+              <ul id="searchResults" class="hide">
                   <div id="noResults" class="animated fadeInDown" style="display:none;"></div>
               </ul>
           </div>
@@ -60,6 +66,8 @@
 
         </div>
     </div>
+
+    
     <!-- END OF SEARCH RESULTS DIV -->
     <footer>Group Project #1</footer>
 </body>

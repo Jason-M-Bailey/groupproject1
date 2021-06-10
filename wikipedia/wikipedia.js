@@ -7,21 +7,29 @@ var submitBtn = document.getElementById("submitBtn");
 var query = searchBar.value;
 var recentSearch = JSON.parse(localStorage.getItem("results")) || [];
 
-var gif= document.getElementsByClassName("gif-container");
-$(gif).fadeIn(1000);
+pastSearchResults();
 
-// keep recent search display as 5 results
-// if statement to determine if anything in recent search
-for (let index = recentSearch.length - 1; index > 0; index--) {
-  console.log(recentSearch[index]);
-  var defaultResults = document.getElementById("defaultSearches");
-  var defaultLi = document.createElement("li");
-  
-  defaultLi.className = "singleResult";
-  defaultLi.innerHTML = recentSearch[index];
-  
-  defaultResults.appendChild(defaultLi);
-  // location.reload(); // uncomment this when you use onclick
+function pastSearchResults() {
+  var defaultResults = document.getElementById("pastSearches");
+  defaultResults.textContent = "";
+
+  // for (let index = recentSearch.length - 1; index > recentSearch.length - 6; index--) { // this shows "undefined" when local storage does not have data 
+    
+
+  for (let index = recentSearch.length - 1; index >= 0; index--) {
+    // while(defaultResults.firstChild) defaultResults.removeChild(defaultResults.firstChild);
+    console.log(recentSearch[index]);
+
+    var defaultLi = document.createElement("li");
+    defaultLi.className = "singleResult";
+    defaultLi.innerHTML = recentSearch[index];
+    defaultLi.addEventListener("click", function () {
+      searchResults(this.textContent);
+      giphy(this.textContent); // changed function name from setup()
+      document.querySelector("#searchResults").classList.remove("hide");
+    });
+    defaultResults.appendChild(defaultLi);
+  }
 }
 
 var api = "";
@@ -30,6 +38,8 @@ var api = "";
 submitBtn.addEventListener("click", function (e) {
   $("#searchResults").empty(); // clear search results
   e.preventDefault(); // prevent default behavior of submit button
+  document.querySelector("#searchResults").classList.remove("hide"); // hide the element initially
+  
   
   // if search bar is empty
   if (searchBar.value === "") {
@@ -39,18 +49,24 @@ submitBtn.addEventListener("click", function (e) {
     }, 750);
   } else {
     var apiUrl = api + "%27" + searchBar.value.replace(/[\s]/g, "_") + "%27"; // replace whitespaces with underscores
-    
+
     console.log(apiUrl);
     console.log("User Query:", searchBar.value); // log users search query
     localStorage.setItem("User Query", searchBar.value);
     console.log(localStorage);
-    
+
     url = apiUrl; // set url to apiUrl
-    recentSearch.push(searchBar.value);
+
+    // if recentSearch === searchBar.value
+    if (!recentSearch.find((keyword) => keyword === searchBar.value)) {
+      recentSearch.push(searchBar.value);
+    }
+
     localStorage.setItem("results", JSON.stringify(recentSearch));
-    searchResults(apiUrl);
-    setup();
+    searchResults(searchBar.value);
+    giphy(userSearch.value); // this is the giphy onclick function
   }
+  pastSearchResults();
 });
 
 function generateList(list) {
@@ -62,32 +78,27 @@ function generateList(list) {
 
     resultsLi.className = "singleResult"; // add class to all li elements
     resultsLi.style.display = "none"; // hide li by default
-    resultsLi.innerHTML = `<h3>
+    resultsLi.innerHTML = `<a target="_blank" href="https://en.wikipedia.org/wiki/${list[i].title}">
+    <h3>
                        ${list[i].title}
                        </h3>
                         <p>
                       ${list[i].snippet}  <em>[click to read more...]</em>
-                      </p>
+                      </p></a>
                       `;
-
-    searchResults.appendChild(resultsLi); // append lis to searchResults div
 
     // wrap li with corresponding wiki url
     $(resultsLi).wrap(function () {
-      return (
-        '<a target="_blank" href="https://en.wikipedia.org/wiki/' +
-        list[i].title +
-        '"></a>'
-      );
+      return "";
     });
+    $(resultsLi).fadeIn(1000); // fade in for a nice UI touch
 
-    // fade in for a nice UI touch
-    $(resultsLi).fadeIn(1000);
+    searchResults.innerHTML = resultsLi.innerHTML; // append lis to searchResults div
   }
 }
 
 // snagged from the wiki api example page
-function searchResults(url) {
+function searchResults(searchTerm) {
   console.log(searchBar.value);
 
   var url = "https://en.wikipedia.org/w/api.php";
@@ -95,7 +106,7 @@ function searchResults(url) {
   var params = {
     action: "query",
     list: "search",
-    srsearch: searchBar.value + " nba",
+    srsearch: searchTerm + " nba", // added nba to improve search results
     format: "json",
     srlimit: 1,
     prop: "images",
@@ -130,14 +141,8 @@ var submitBtn = document.getElementById("submitBtn");
 
 let apiKey = "l638WPBsusN4Hth8cjVYu33qELrQ77E9"; // api key created for nba project
 
-// https://api.giphy.com/v1/gifs/search?api_key=l638WPBsusN4Hth8cjVYu33qELrQ77E9&q=&limit=1&offset=0&rating=g&lang=en
-
-// $( document ).ready(function() {
-//   console.log(userSearch.value);
-// });
-
-function setup() {
-  let api = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&limit=5&q=${userSearch.value}`;
+function giphy(searchTerm) {
+  let api = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&limit=5&q=${searchTerm}`;
   fetch(api)
     .then((response) => {
       return response.json();
@@ -147,19 +152,8 @@ function setup() {
       console.log(json.data[0].images.original.url); // this link displays just the gif
       console.log(json.data[3].images.original.url);
       gifOne.src = json.data[0].images.original.url;
-      // gifTwo.src = json.data[1].images.original.url;
-      // gifThree.src = json.data[2].images.original.url;
+      gifTwo.src = json.data[1].images.original.url; // uncomment if we want multiple gifs
+      gifThree.src = json.data[2].images.original.url; // uncomment if we want multiple gifs
     })
     .catch((err) => console.log(err));
 }
-
-// submitBtn.addEventListener("click", function (e) {
-//   e.preventDefault(); // prevent default behavior of submit button
-//   setup();
-//   console.log(userSearch.value);
-//   // fade in over 1 second 
-//   // wiki code = $(resultsLi).fadeIn(1000);
-//   gifOne.fadeIn(1000);
-// });
-
-
