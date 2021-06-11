@@ -7,6 +7,16 @@ var submitBtn = document.getElementById("submitBtn");
 var query = searchBar.value;
 var recentSearch = JSON.parse(localStorage.getItem("results")) || [];
 
+var playerName = document.getElementById("player-name");
+var points = document.getElementById("ppg");
+var rebounds = document.getElementById("rpg");
+var assists = document.getElementById("apg");
+var fieldGoal = document.getElementById("fg");
+var threes = document.getElementById("fg3p");
+var freeThrows = document.getElementById("ft");
+var gamesPlayed = document.getElementById("gp");
+var minutes = document.getElementById("mpg");
+
 var gif= document.getElementsByClassName("gif-container");
 $(gif).fadeIn(1000);
 
@@ -50,6 +60,7 @@ submitBtn.addEventListener("click", function (e) {
     localStorage.setItem("results", JSON.stringify(recentSearch));
     searchResults(apiUrl);
     setup();
+    playerSearch();
   }
 });
 
@@ -151,6 +162,39 @@ function setup() {
       // gifThree.src = json.data[2].images.original.url;
     })
     .catch((err) => console.log(err));
+}
+
+function playerSearch(){
+  var playerApi= 'https://www.balldontlie.io/api/v1/players?search='+ userSearch.value;
+  fetch(playerApi)
+  .then(response => {
+    return response.json();
+  })
+  .then(json => {
+    console.log(json);
+    var playerID= json.data[0].id;
+    playerName.innerText= json.data[0].first_name + " " + json.data[0].last_name +" |" + json.data[0].team.abbreviation + "| 2020-2021 Stats";
+    var statsApi= 'https://www.balldontlie.io/api/v1/season_averages?api/v1/season_averages?season=2020&player_ids[]='+ playerID
+    fetch(statsApi)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      console.log(json);
+      points.innerText = json.data[0].pts;
+      rebounds.innerText= json.data[0].reb;
+      assists.innerText= json.data[0].ast;
+      fieldGoal.innerText= json.data[0].fg_pct;
+      threes.innerText= json.data[0].fg3_pct;
+      freeThrows.innerText= json.data[0].ft_pct;
+      gamesPlayed.innerText= json.data[0].games_played;
+      minutes.innerText= json.data[0].min;      
+    }) 
+    
+  })
+
+  
+
 }
 
 // submitBtn.addEventListener("click", function (e) {
