@@ -190,13 +190,7 @@ function playerSearch() {
     .then((json) => {
       console.log(json);
       var playerID = json.data[0].id;
-      playerName.innerText =
-        json.data[0].first_name +
-        " " +
-        json.data[0].last_name +
-        " | " +
-        json.data[0].team.abbreviation +
-        " | 2020-2021 Stats";
+      playerName.innerText =json.data[0].position + " | " + json.data[0].team.full_name;
       var statsApi =
         "https://www.balldontlie.io/api/v1/season_averages?api/v1/season_averages?season=2020&player_ids[]=" + playerID;
       fetch(statsApi)
