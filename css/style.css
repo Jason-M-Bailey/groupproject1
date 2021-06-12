@@ -1,124 +1,215 @@
-* {
-    box-sizing: border-box;
-}
-
-h1 {
-    text-align: center;
-}
-
-html {
-    scroll-behavior: smooth;
+body {
+  font-family: "Inconsolata", sans-serif;
+  box-sizing: border-box;
+  background: #f5f5f5;
+  height: 100vh;
 }
 
 .row {
   display: flex;
-  /* flex-direction: row; */
   justify-content: center;
+  text-align: center;
 }
 
-:root {
-  --primary: rgba(39, 42, 131, 1);
-  --secondary: rgb(194, 240, 253);
-  --tertiary: rgba(39, 42, 131, 1);
-  --dark: rgba(28, 29, 33, 1);
-  --light: rgb(206, 206, 207);
-}
-
-.page-wrapper {
-  max-width: 100%;
-  border: 1px solid rgb(138, 138, 138);
-}
-
-.page-section {
-  /* margin: 25px 0; */
-  /* padding: 10px 0; */
-  display: flex;
+.wikiResults,
+.giphyResults,
+.row {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: stretch;
   justify-content: space-between;
+  flex-basis: calc(100% - 1em);
 }
 
-.page-section > div {
-  flex: 0 0 100%;
+#gif-2,
+#gif-3 {
+  display: none;
 }
 
-.page-section > h2 {
-  border-right: none;
-  border-bottom: 4px solid var(--primary);
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  text-align: right;
+footer {
+  text-align: center;
+  padding: 100px;
 }
 
-.page-section p {
-  margin-bottom: 20px;
+.title {
+  font-weight: 200;
 }
 
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.wikiSearch {
+  display: block;
+  margin: 0 auto 25px;
+  width: 90%;
+  text-align: center;
+  padding: 20px;
 }
 
-.gif {
-  max-width: 250px;
-  max-height: 185px;
+#searchBar {
+  height: 50px;
+  text-align: center;
+  width: 80%;
+  font-weight: 100;
+  font-size: 1.5em;
+  display: inline-block;
+  font-family: "Inconsolata", sans-serif;
+  font-weight: 100;
+  color: #919191;
+  padding: 30px;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  border-bottom: 3px solid #ddd;
+  background: transparent;
+  margin: 20px auto;
+  padding-bottom: 40px;
+  transition: border-bottom 0.5s ease;
 }
 
-.gif-container {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--primary);
-  object-fit: cover;
+#submitBtn {
+  background: transparent;
+  border: none;
+  height: 50px;
+  width: 50px;
+  outline: none;
+  cursor: pointer;
+  margin-left: -50px;
 }
-.flex-item-bookmarks {
-  background-color: var(--primary);
-  color: var(--tertiary);
-  display: flex;
-  align-items: flex-end;
-  padding: 0 0 20px 0;
-  margin: 0.5em;
+
+#submitBtn i {
+  color: #ddd;
+}
+
+#nbaplayerlist {
+  display: block;
   text-decoration: none;
-  background-blend-mode: soft-light;
-  background-size: 100%;
-  transition: all 0.5s;
-  border-radius: 5px;
+  text-transform: lowercase;
+  font-weight: 100;
+  letter-spacing: 3px;
+  color: rgb(182, 182, 182);
+  transition-property: color;
+  transition-duration: 1s;
 }
 
-.flex-item-bookmarks {
-  border: 1px solid white;
-  height: 600px;
-  flex-basis: calc(25% - 1em);
+#nbaplayerlist:hover {
+  color: #000000;
+  transition-property: color;
+  transition-duration: 1s;
 }
 
-.flex-item-bookmarks:hover {
-  background-color: rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0px 0px 8px black, 0 0 30px black;
+#searchResults {
+  list-style: none;
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  padding-left: 0;
+  text-decoration: none;
+  font-family: "Inconsolata", sans-serif;
 }
 
-.flex-item-bookmarks div {
-  background-color: var(--secondary);
-  padding: 8px 10px;
+a {
+  text-decoration: none;
+  color: black;
+  font-family: "tahoma";
+}
+
+/* #noResults {
+  color: #c8102e;
+  font-weight: 400;
+} */
+
+.singleResult,
+#searchResults {
+  background: #fff;
+  font-family: "Inconsolata", sans-serif;
+  font-weight: 100;
+  padding: 1% 1%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  display: inline-block;
+  margin: 10px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 6px;
+  color: #777;
+}
+
+ul {
+  padding: 0px;
+}
+
+li:hover {
+  cursor: pointer;
+}
+
+.singleResult p {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.nba-stats {
+  flex: 1;
+  margin: 15px 0px;
+  display: flex;
+  padding: 5px;
+  overflow-x: auto;
+  border-width: 0.5px;
+  border-style: solid;
+  border-color: #616161;
+}
+
+.stat-cat {
+  flex: 1;
+  display: flex;
+  padding: 0px 5px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid #000;
+}
+
+::placeholder {
+  color: #ddd;
+}
+
+/* .alert {
+  border-bottom: 3px solid #000000 !important;
+  transition: border-bottom 0.5s ease;
+} */
+
+.hide {
+  display: none !important;
 }
 
 /* Mobile first queries */
 /* Larger than tablet */
 @media (min-width: 750px) {
-    .flex-item-bookmarks {
+  .wikiResults,
+  .giphyResults,
+  .row {
     flex-basis: calc(100% - 1em);
-  }}
+  }
+}
 
 /* Larger than desktop */
 @media (min-width: 1000px) {
-    .flex-item-bookmarks {
-        flex-basis: calc(50% - 1em);
-      }
+  .wikiResults,
+  .giphyResults,
+  .row {
+    flex-basis: calc(100% - 1em);
+  }
+
+  #gif-2 {
+    display: inline;
+  }
 }
 
 /* Larger than Desktop HD */
-@media (min-width: 1200px) {
-    .flex-item-bookmarks {
-        flex-basis: calc(25% - 1em);
-      }
+@media (min-width: 1300px) {
+  .wikiResults,
+  .giphyResults,
+  .row {
+    flex-basis: calc(100% - 1em);
+  }
+  #gif-2,
+  #gif-3 {
+    display: inline;
+  }
 }

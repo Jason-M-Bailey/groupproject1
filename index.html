@@ -4,79 +4,114 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Group Project #1</title>
-    <link rel="stylesheet" href="./css/skeleton.css" />
-    <link rel="stylesheet" href="./css/style.css" />
+    <title>NBA Player Search</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <!-- SKELETON CSS FRAMEWORK -->
+    <link rel="stylesheet" href="./css/skeleton.css">
+    
+    <!-- PERSONALIZED CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <!-- ANIMATED CSS -->
+    <link rel="stylesheet" href="./css/animate.css">
+    
   </head>
   <body>
-    <h1>NBA Player Search</h1>
-    <form>
-      <div class="row">
-        <div>
-          <input id="search-bar" type="search" placeholder="search for a nba player" />
-        </div>
-        <input id="submit-button" class="button-primary" type="submit" value="Submit" />
-      </div>
-    </form>
+    <div class="container">
 
-    <main class="page-wrapper">
 
-        <!-- Bookmarks section -->
-        <section class="page-section" id="bookmarks">
-          <div class="flex-container">
-            <div class="flex-item-bookmarks">
-              <div>
-                <table style= "width:100%" class= "stats-box hide" id= "stats">
-                  <tr>
-                    <th id= name></th>
-                  </tr>
-                  <tr>
-                    <td id= ppg></td>
-                    <td id= rpg></td>
-                  </tr>
-                  <tr>
-                    <td id= apg></td>
-                    <td id= fg></td>
-                  </tr>
-                  <tr>
-                    <td id= fg3p></td>
-                    <td id= ft></td>
-                  </tr>
-                  <tr>
-                    <td id= gp></td>
-                    <td id= mpg></td>
-                  </tr>
-                </table>
-                <p>NBA Stats</p>
-              </div>
-            </div>
-            <div class="flex-item-bookmarks">
-              <div>
-                <p>Wikipedia</p>
-              </div>
-            </div>
-            <div class="flex-item-bookmarks">
-              <div>
-                <p>YouTube</p>
-              </div>
-            </div>
-            <div class="flex-item-bookmarks">
-              <div>
-                <div class= "gif-container">
-                  <img id= "gif-1" class= "gif" src=>
-                  <img id= "gif-2" class= "gif" src=>
-                  <img id= "gif-3" class= "gif" src=>
-                </div>
-                <p>Giphy</p>
-              </div>
-            </div>
+        <!-- SEARCH BAR -->
+        <form id="wikiSearch" class="wikiSearch">
+            <input id="searchBar" type="text" autocomplete="off" name="search" placeholder="search for a nba player..." />
+            <span class="inputUnderline"></span>
+            <button id="submitBtn" type="submit"><i class="fas fa-search fa-3x"></i></i></button>
+            <div class="autocomplete"></div>
+
+
+            <!-- LINK TO WIKI LIST OF NBA PLAYERS -->
+            <a id="nbaplayerlist" target="_blank" href="https://en.wikipedia.org/wiki/Lists_of_National_Basketball_Association_players">List of NBA Players</a>
             
-          </div>
-        </section>
-  
-        
-      </main>
 
-      <script src= "js/script.js"></script>
+            <!-- PLACEHOLDER OF RECENT SEARCHES -->
+            <h4>Recent Searches</h4>
+            <ul id="pastSearches"></ul>
+        </form>
+
+        <!-- EMPTY DIV FOR SEARCH RESULTS -->
+        <div class="row">
+
+
+          <!-- GIPHY RESULTS -->
+          <div class="giphyResults">
+            <div class="flex-item-bookmarks">
+              <div>
+                <div class="gif-container animated fadeInDown">
+                  <img id= "gif-1" class= "gif" src=> <img id= "gif-2" class=
+                  "gif" src=> <img id= "gif-3" class= "gif" src=>
+                </div>
+                <!-- <p>Giphy</p> -->
+              </div>
+            </div>
+          </div>
+
+          
+          <!-- WIKI RESULTS -->
+          <div class="wikiResults">
+              <ul id="searchResults" class="hide">
+                  <div id="noResults" class="animated fadeInDown" style="display:none;"></div>
+              </ul>
+          </div>
+
+
+          <!-- BALL DON'T LIE API RESULTS -->
+          <div class="player-info">
+            <h2 id="player-name"></h2>
+          </div> 
+          <div class= "nba-stats">
+            <div class= "stat-cat">
+              <h6>PPG</h6>
+              <h6 id="ppg"></h6>
+            </div>
+            <div class= "stat-cat">
+              <h6>RPG</h6>
+              <h6 id="rpg"></h6>
+            </div>
+            <div class= "stat-cat">
+              <h6>APG</h6>
+              <h6 id="apg"></h6>
+            </div>
+            <div class= "stat-cat">
+              <h6>FG%</h6>
+              <h6 id="fg"></h6>
+            </div>
+            <div class= "stat-cat">
+              <h6>3FG%</h6>
+              <h6 id="fg3p"></h6>
+            </div>
+            <div class= "stat-cat">
+              <h6>FT%</h6>
+              <h6 id="ft"></h6>
+            </div>
+            <div class= "stat-cat">
+              <h6>GP</h6>
+              <h6 id="gp"></h6>
+            </div>
+            <div class= "stat-cat">
+              <h6>MPG</h6>
+              <h6 id="mpg"></h6>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <footer>Group Project #1</footer>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="./js/script.js"></script>
+
   </body>
 </html>
