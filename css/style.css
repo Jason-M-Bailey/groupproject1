@@ -173,7 +173,14 @@ li:hover {
   border-bottom: 3px solid #000000 !important;
   transition: border-bottom 0.5s ease;
 } */
+.player-info {
+  width: 100%;
+}
 
+.no-stats{
+  width: 100%;
+  justify-content: center;
+}
 .hide {
   display: none !important;
 }
