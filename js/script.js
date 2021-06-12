@@ -51,7 +51,7 @@ var api = "";
 
 // listen for click on submit button
 submitBtn.addEventListener("click", function (e) {
-  $("#searchResults").empty(); 
+  // $("#searchResults").empty(); 
   e.preventDefault(); 
   document.querySelector("#searchResults").classList.remove("hide"); 
 
@@ -78,6 +78,8 @@ submitBtn.addEventListener("click", function (e) {
     searchResults(searchBar.value);
     giphy(userSearch.value);
   }
+  var statBox = document.getElementById("stat-box");
+  statBox.classList.remove("hide");
   pastSearchResults();
   playerSearch();
 });
@@ -196,14 +198,24 @@ function playerSearch() {
         json.data[0].team.abbreviation +
         " | 2020-2021 Stats";
       var statsApi =
-        "https://www.balldontlie.io/api/v1/season_averages?api/v1/season_averages?season=2020&player_ids[]=" +
-        playerID;
+        "https://www.balldontlie.io/api/v1/season_averages?api/v1/season_averages?season=2020&player_ids[]=" + playerID;
       fetch(statsApi)
         .then((response) => {
           return response.json();
         })
         .then((json) => {
           console.log(json);
+          
+          var noStats = document.getElementById("no-result");
+          var statDisplay = document.getElementById("stat-table");
+
+          if ((json.data.length) == 0) {
+            noStats.classList.remove("hide");
+            statDisplay.classList.add("hide");
+          } else {
+          statDisplay.classList.remove("hide");
+          noStats.classList.add("hide");
+
           points.innerText = json.data[0].pts;
           rebounds.innerText = json.data[0].reb;
           assists.innerText = json.data[0].ast;
@@ -212,6 +224,12 @@ function playerSearch() {
           freeThrows.innerText = json.data[0].ft_pct;
           gamesPlayed.innerText = json.data[0].games_played;
           minutes.innerText = json.data[0].min;
+          }
+
+
+          
         });
+        
+
     });
 }
