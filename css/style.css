@@ -165,6 +165,15 @@ li:hover {
   border-right: 1px solid #000;
 }
 
+.stat-cat-last {
+  flex: 1;
+  display: flex;
+  padding: 0px 5px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
 ::placeholder {
   color: #ddd;
 }

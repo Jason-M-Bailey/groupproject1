@@ -1,8 +1,9 @@
 // Docs & References
 // https://en.wikipedia.org/wiki/Lists_of_National_Basketball_Association_players
 // https://www.mediawiki.org/wiki/API:Main_page
-// add giphy api docs
-// add ball don't lie docs
+// https://developers.giphy.com/docs/api#quick-start-guide
+// https://www.balldontlie.io/#introduction
+
 
 var searchBar = document.getElementById("searchBar");
 var submitBtn = document.getElementById("submitBtn");
@@ -41,6 +42,7 @@ function pastSearchResults() {
     defaultLi.addEventListener("click", function () {
       searchResults(this.textContent);
       giphy(this.textContent);
+      playerSearch(this.textContent)
       document.querySelector("#searchResults").classList.remove("hide");
     });
     defaultResults.appendChild(defaultLi);
@@ -51,7 +53,6 @@ var api = "";
 
 // listen for click on submit button
 submitBtn.addEventListener("click", function (e) {
-  // $("#searchResults").empty(); 
   e.preventDefault(); 
   document.querySelector("#searchResults").classList.remove("hide"); 
 
@@ -76,7 +77,8 @@ submitBtn.addEventListener("click", function (e) {
 
     localStorage.setItem("results", JSON.stringify(recentSearch));
     searchResults(searchBar.value);
-    giphy(userSearch.value);
+    giphy(userSearch.value)
+    playerSearch(userSearch.value);
   }
   var statBox = document.getElementById("stat-box");
   statBox.classList.remove("hide");
@@ -180,9 +182,9 @@ function giphy(searchTerm) {
 //
 // ball don't like api
 //
-function playerSearch() {
+function playerSearch(searchTerm) {
   var playerApi =
-    "https://www.balldontlie.io/api/v1/players?search=" + userSearch.value;
+    "https://www.balldontlie.io/api/v1/players?search=" + searchTerm;
   fetch(playerApi)
     .then((response) => {
       return response.json();
@@ -201,7 +203,7 @@ function playerSearch() {
           console.log(json);
           
           var noStats = document.getElementById("no-result");
-          var statDisplay = document.getElementById("stat-table");
+          var statDisplay = document.getElementById("stat-box");
 
           if ((json.data.length) == 0) {
             noStats.classList.remove("hide");
@@ -218,12 +220,7 @@ function playerSearch() {
           freeThrows.innerText = json.data[0].ft_pct;
           gamesPlayed.innerText = json.data[0].games_played;
           minutes.innerText = json.data[0].min;
-          }
-
-
-          
-        });
-        
-
+          }          
+        });        
     });
 }
