@@ -8,6 +8,7 @@
 var searchBar = document.getElementById("searchBar");
 var submitBtn = document.getElementById("submitBtn");
 var query = searchBar.value;
+var wikiHeader = document.getElementById("wiki-tag")
 var recentSearch = JSON.parse(localStorage.getItem("results")) || [];
 
 // ball don't lie api vars
@@ -44,6 +45,7 @@ function pastSearchResults() {
       giphy(this.textContent);
       playerSearch(this.textContent)
       document.querySelector("#searchResults").classList.remove("hide");
+      wikiHeader.classList.remove("hide") ; 
     });
     defaultResults.appendChild(defaultLi);
   }
@@ -82,6 +84,7 @@ submitBtn.addEventListener("click", function (e) {
   }
   var statBox = document.getElementById("stat-box");
   statBox.classList.remove("hide");
+  wikiHeader.classList.remove("hide")
   pastSearchResults();
   playerSearch();
 });
