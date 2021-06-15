@@ -9,6 +9,7 @@ var searchBar = document.getElementById("searchBar");
 var submitBtn = document.getElementById("submitBtn");
 var query = searchBar.value;
 var recentSearch = JSON.parse(localStorage.getItem("results")) || [];
+var clearBtn = document.getElementById("clearBtn");
 
 // ball don't lie api vars
 var playerName = document.getElementById("player-name");
@@ -23,22 +24,35 @@ var minutes = document.getElementById("mpg");
 
 pastSearchResults();
 
+
+clearBtn.addEventListener("click", () => {
+  localStorage.removeItem("results");
+  recentSearch = [];
+  console.log("You search has been cleared")
+});
+
 // 
 // store and display past search results on page
 // 
 function pastSearchResults() {
   var defaultResults = document.getElementById("pastSearches");
   defaultResults.textContent = "";
+  var stop;
 
-  // for (let index = recentSearch.length - 1; index > recentSearch.length - 6; index--) { // this shows "undefined" when local storage does not have data
-
-  for (let index = recentSearch.length - 1; index >= 0; index--) {
-    // while(defaultResults.firstChild) defaultResults.removeChild(defaultResults.firstChild);
-    console.log(recentSearch[index]);
-
+  if (recentSearch.length > 5) {
+     stop=recentSearch.length-5;    
+  }else {
+     stop=0
+  } 
+  
+  for (var index = recentSearch.length; index > stop; index--) {
+  
+    console.log(recentSearch[index-1]);
+   
     var defaultLi = document.createElement("li");
     defaultLi.className = "singleResult";
-    defaultLi.innerHTML = recentSearch[index];
+    defaultLi.innerHTML = recentSearch[index-1];
+    console.log(recentSearch[index-1]);
     defaultLi.addEventListener("click", function () {
       searchResults(this.textContent);
       giphy(this.textContent);
@@ -46,6 +60,7 @@ function pastSearchResults() {
       document.querySelector("#searchResults").classList.remove("hide");
     });
     defaultResults.appendChild(defaultLi);
+    console.log(defaultLi);
   }
 }
 
@@ -64,6 +79,7 @@ submitBtn.addEventListener("click", function (e) {
     }, 750);
   } else {
     var apiUrl = api + "%27" + searchBar.value.replace(/[\s]/g, "_") + "%27";
+    
 
     console.log(apiUrl);
     console.log("query:", searchBar.value);
@@ -79,12 +95,17 @@ submitBtn.addEventListener("click", function (e) {
     searchResults(searchBar.value);
     giphy(userSearch.value)
     playerSearch(userSearch.value);
-  }
+  } 
   var statBox = document.getElementById("stat-box");
   statBox.classList.remove("hide");
   pastSearchResults();
   playerSearch();
+  clearSearch ();
 });
+
+function clearSearch () {
+  searchBar.value = "";
+}
 
 // 
 // create wiki results
@@ -223,4 +244,4 @@ function playerSearch(searchTerm) {
           }          
         });        
     });
-}
+} 
