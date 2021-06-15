@@ -27,13 +27,22 @@ WHEN I click on the link from Wikipedia
 
 THEN I am redirected to the players Wikipedia page
 
+```
 
-APIs  
+## APIs Used
+
 https://www.mediawiki.org/wiki/API:Main_page  
+
 https://www.balldontlie.io/api/v1/players
+
 https://developers.giphy.com/docs/sdk  
 
+## Mock Up
+![Attached screenshot](Screenshot%202021-06-15%20174531.png)
 
+## Link to Deployed Site
+
+[NBA PLAYER SEARCH ENGINE](https://github.com/Jason-M-Bailey/nbaplayersearch)
 
 
 
