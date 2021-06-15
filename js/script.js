@@ -8,7 +8,7 @@
 var searchBar = document.getElementById("searchBar");
 var submitBtn = document.getElementById("submitBtn");
 var query = searchBar.value;
-var wikiHeader = document.getElementById("wiki-tag");
+var wikiHeader = document.getElementById("wiki-tag")
 var recentSearch = JSON.parse(localStorage.getItem("results")) || [];
 var clearBtn = document.getElementById("clearBtn");
 
@@ -59,8 +59,7 @@ function pastSearchResults() {
       giphy(this.textContent);
       playerSearch(this.textContent)
       document.querySelector("#searchResults").classList.remove("hide");
-      wikiHeader.classList.remove("hide"); 
-
+      wikiHeader.classList.remove("hide");
     });
     defaultResults.appendChild(defaultLi);
     console.log(defaultLi);
